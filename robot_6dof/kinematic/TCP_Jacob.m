@@ -18,7 +18,9 @@ else
 end
 
 %% 
-T6t = trotz(tcp_rpy(3))*troty(tcp_rpy(2))*trotx(tcp_rpy(1))*transl(0,0,l_tcp);
+rpyxyz = [tcp_rpy,[0,0,l_tcp]];
+T6t = rpyxyz2T(rpyxyz);
+% T6t = transl(0,0,l_tcp)*trotz(tcp_rpy(3))*troty(tcp_rpy(2))*trotx(tcp_rpy(1));
 Tb0 = transl(0,0,l_base);
 
 %% MDH param [a, alpha, d, offset]
@@ -48,7 +50,7 @@ Tb5 = Tb4*T45;
 Tb6 = Tb5*T56;
 Tbt = Tb6*T6t
 % Tit
-T5t = T6t*T56;
+T5t = T56*T6t;
 T4t = T45*T5t;
 T3t = T34*T4t;
 T2t = T23*T3t;

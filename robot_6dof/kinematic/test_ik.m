@@ -58,7 +58,7 @@ T = [forwarda.n(1,1), forwarda.o(1,1),forwarda.a(1,1),forwarda.t(1,1);
     forwarda.n(3,1), forwarda.o(3,1),forwarda.a(3,1),forwarda.t(3,1);
     0,0,0,1];
 
-theta_ik_all = IK_MDH(T, type_num);
+[~,theta_ik_all] = IK_MDH(T, type_num);
 theta_ik_all_deg = theta_ik_all*180/pi
 
 %% check fk using Tools

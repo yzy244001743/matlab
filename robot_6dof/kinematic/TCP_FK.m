@@ -14,12 +14,14 @@ else
     a2 = 0.260;
     l_tcp = 0.1382;
     l_base = 0.2035;
-    tcp_rpy = [0,0,0];
+    tcp_rpy = [0,0,pi];
 end
 
 %% 
-T06 = FK_MDH(joints, type_num);
-T6_tcp = trotz(tcp_rpy(3))*troty(tcp_rpy(2))*trotx(tcp_rpy(1))*transl(0,0,l_tcp);
+T06 = FK_MDH(joints, type_num)
+rpyxyz = [tcp_rpy,[0,0,l_tcp]];
+T6_tcp = rpyxyz2T(rpyxyz);
+% T6_tcp = transl(0,0,l_tcp)*trotz(tcp_rpy(3))*troty(tcp_rpy(2))*trotx(tcp_rpy(1));
 Tbase_0 = transl(0,0,l_base);
 T = Tbase_0 * T06* T6_tcp;
 end

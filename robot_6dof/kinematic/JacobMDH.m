@@ -1,4 +1,6 @@
 function [J0,Je]= JacobMDH(angles,type_num)
+%JACOBI 此处显示有关此函数的摘要
+%   此处显示详细说明
 if type_num==1
     % for RM65
     d4 = 0.210;

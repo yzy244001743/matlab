@@ -22,7 +22,7 @@ if c ~= 6
     disp("input date error");
     flag = false;
     ik = zeros(1,6);
-    return
+    return;
 end
 num = 0;
 index_list = zeros(1,r);
@@ -44,7 +44,7 @@ if num == 0
     disp("no ik meet angle constraint");
     flag = false;
     ik = zeros(1,6);
-    return
+    return;
 elseif num == 1
     flag = true;
     ik = ik_all(index_list(1),:);
@@ -52,10 +52,11 @@ elseif num == 1
 end
 
 %% cost
-w = [2,2,2,1,1,1];
+w = [2,2,2,1,1,1];%weights
 cost_min = 0;
 opt_index = index_list(1);
-ik_first = ik_all(index_list(opt_index),:);
+% ik_first = ik_all(index_list(opt_index),:);
+ik_first = ik_all(index_list(1),:);
 for i=1:6
 	cost_min = cost_min + w(i)*abs( ik_first(i) - refer_angle(i) );
 end

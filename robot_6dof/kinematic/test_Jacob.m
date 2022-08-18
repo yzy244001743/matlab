@@ -1,4 +1,5 @@
 clear,clc,close all;
+
 %% robot cfg
 type_num=1;
 if type_num==1
@@ -31,10 +32,10 @@ robot=SerialLink([L1 L2 L3 L4 L5 L6],'name','Arm6')
 % Theta=[-30.0000  -30   30.0000  -30  -30.0000  -30.0000];
 % Theta = [2.3, 120.3, -15.5, 11.5, 13.8, 19.7];
 % ∆Ê“Ï≤‚ ‘
-Theta=[39.0000  0   0.0000  11.5,  0.0000  19.7];% j1°¢j4°¢j6π≤÷·∆Ê“Ï + ±ﬂΩÁ∆Ê“Ï -- rank(J0)=4
+% Theta=[39.0000  0   0.0000  11.5,  0.0000  19.7];% j1°¢j4°¢j6π≤÷·∆Ê“Ï + ±ﬂΩÁ∆Ê“Ï -- rank(J0)=4
 % Theta=[7.0000  0   0.0000  0,  0.0000  0];% j1°¢j4°¢j6π≤÷·∆Ê“Ï + ±ﬂΩÁ∆Ê“Ï -- rank(J0)=3
 % Theta=[20.0000  0   0.0000  10  88.0000  20.0000];% j1°¢j4π≤÷·∆Ê“Ï  + ±ﬂΩÁ∆Ê“Ï
-% Theta = [2.3, 120.3, -15.5, 11.5, 0, 19.7];% j4°¢j6π≤÷·∆Ê“Ï
+Theta = [2.3, 120.3, -15.5, 11.5, 0, 19.7];% j4°¢j6π≤÷·∆Ê“Ï
 % Theta = [2.3, 120.3, 0, 11.5, 13.8, 19.7];% ±ﬂΩÁ∆Ê“Ï
 %
 % ÕÛ≤ø«Ú√Ê÷–µ„Œª”⁄J1÷·œﬂ…œ∆Ê“Ï
@@ -42,10 +43,14 @@ j2 = 30*pi/180;%>0
 j2_j3 = asin(a2*sin(j2)/d4)
 j3 = -(j2_j3 + j2);
 j3_deg =j3*180/pi
-Theta=[10  j2*180/pi   j3_deg  11.5,  10.0000  19.7]
+% Theta=[10  j2*180/pi   j3_deg  11.5,  10.0000  19.7]
 %% 
 Theta=Theta/180*pi;                      
 forwarda=robot.fkine(Theta)            
+% W=[-1.0,+1.0,-1.0,+1.0,-1.0,+1.0];
+% robot.plot(Theta,'tilesize',0.15,'workspace',W); 
+% robot.teach(forwarda,'rpy' )              %œ‘ æroll/pitch/yaw angles£¨GUIø…µ˜ΩÁ√Ê
+% theta_ik = robot.ikine(forwarda)*180/pi
 
 J0_d = robot.jacob0(Theta)
 Je_d = robot.jacobe(Theta)

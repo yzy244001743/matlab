@@ -18,7 +18,7 @@ else
     tcp_rpy = [0,0,0];
 end
 
-%% 初始状态为竖直状态       
+%% 建立机器人DH参数，初始状态为竖直状态       
 L1=Link('d',0,'a',0,'alpha',0,'modified'); 
 L2=Link('d',0,'a',0,'alpha',-pi/2,'offset',-pi/2,'modified');
 L3=Link('d',0,'a',a2,'alpha',0,'offset',-pi/2,'modified');
@@ -33,7 +33,6 @@ Theta=Theta/180*pi;
 forwarda=robot.fkine(Theta)             
 W=[-1.0,+1.0,-1.0,+1.0,-1.0,+1.0];  
  
-
 %% limit
 DEG2RAD = pi/180.0;
 % for RM65
@@ -51,28 +50,30 @@ j6_l = -1*pi;% 2*pi
 j6_u = 1*pi;
 
 %% workspace plot
-N=8000;                                              
-theta1= j1_l+(-j1_l +j1_u)*rand(N,1); 
-theta2= j2_l+(-j2_l +j2_u)*rand(N,1);   
+N= 8000;                                              
+theta1= j1_l+(-j1_l +j1_u)*rand(N,1);
+theta2= j2_l+(-j2_l +j2_u)*rand(N,1);
 theta3= j3_l+(-j3_l +j3_u)*rand(N,1);  
 theta4= j4_l+(-j4_l +j4_u)*rand(N,1); 
 theta5= j5_l+(-j5_l +j5_u)*rand(N,1); 
 theta6= j6_l+(-j6_l +j6_u)*rand(N,1); 
 
 % robot.teach()
-% robot.plot(Theta,'tilesize',0.150,'workspace',W); 
-% robot.teach(forwarda,'rpy') 
+robot.plot(Theta,'tilesize',0.150,'workspace',W); 
+robot.teach(forwarda,'rpy') 
 hold on
 for n=1:1:N
     % - using robotics Toolbox
-%     pp=robot.fkine([theta1(n) theta2(n) theta3(n) theta4(n) theta5(n) theta6(n)]);
-%     plot3(pp.t(1),pp.t(2),pp.t(3),'b.','MarkerSize',1.0);
+    pp=robot.fkine([theta1(n) theta2(n) theta3(n) theta4(n) theta5(n) theta6(n)]);
+    plot3(pp.t(1),pp.t(2),pp.t(3),'b.','MarkerSize',1.0);
     % - using FK_MDH or TCP_FK
-    pp = FK_MDH([theta1(n) theta2(n) theta3(n) theta4(n) theta5(n) theta6(n)],type_num);
-    plot3(pp(1,4),pp(2,4),pp(3,4),'b.','MarkerSize',1.0);
+%     pp = FK_MDH([theta1(n) theta2(n) theta3(n) theta4(n) theta5(n) theta6(n)],type_num);
+%     plot3(pp(1,4),pp(2,4),pp(3,4),'b.','MarkerSize',1.0);
     hold on
 end
 disp("end");
+
+
 
 
 
